@@ -25,54 +25,65 @@ const page = async () => {
     );
 
     return (
-      <div className="max-w-[1500px] mx-auto w-[90%] py-10">
-        <h1 className="font-bold mb-4 text-center text-2xl uppercase text-white">
-          Leaderboards 🏆
+      <div className="max-w-[1500px] mx-auto w-[90%] py-10 bg-gray-900 min-h-screen">
+        <h1 className="font-bold mb-8 text-center text-3xl uppercase text-neon-cyan neon-text">
+          🏆 Leaderboards 🏆
         </h1>
         {users.length === 0 ? (
-          <div className="text-center text-gray-400 py-8">
-            <p>No users have taken the quiz yet!</p>
-            <p className="text-sm mt-2">Be the first to start the quiz and claim the top spot! 🚀</p>
+          <div className="text-center py-8 bg-gradient-to-r from-cyber-darker to-cyber-blue rounded-lg border border-neon-cyan/30">
+            <p className="text-neon-cyan text-lg mb-2">No users have taken the quiz yet!</p>
+            <p className="text-gray-300 text-sm">Be the first to start the quiz and claim the top spot! 🚀</p>
           </div>
         ) : (
-          <ol className="space-y-2">
+          <ol className="space-y-4">
             {users.map((user, index) => (
               <li
                 key={user.id}
-                className={`py-4 px-6 rounded-lg bg-gradient-to-r from-cyber-darker to-cyber-blue border border-neon-cyan/20 ${
-                  index < 3 ? "font-bold border-neon-cyan/40" : ""
+                className={`py-6 px-8 rounded-lg bg-gradient-to-r from-cyber-darker/80 to-cyber-blue/80 backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 ${
+                  index === 0 ? "border-yellow-400/60 shadow-lg shadow-yellow-400/20" :
+                  index === 1 ? "border-gray-300/60 shadow-lg shadow-gray-300/20" :
+                  index === 2 ? "border-orange-400/60 shadow-lg shadow-orange-400/20" :
+                  "border-neon-cyan/30"
                 }`}
               >
-                <div className="flex items-center gap-5 w-full">
-                  <div className="flex sm:flex-row flex-col gap-1 justify-between w-full items-center">
-                    <div className="flex gap-3 items-center">
-                      <span className={`text-xl mb-1 ${
-                        index === 0 ? 'text-yellow-400' : 
-                        index === 1 ? 'text-gray-300' : 
-                        index === 2 ? 'text-orange-400' : 'text-white'
-                      }`}>
-                        {index + 1}
-                      </span>
-                      <Image
-                        src={user.profilePic || '/default-avatar.png'}
-                        width={30}
-                        height={30}
-                        alt={`Image of ${user.username}`}
-                        className="rounded-full border-2 border-neon-cyan/30"
-                      />
-                      <span className="text-xl text-white">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex gap-4 items-center">
+                    <div className={`text-2xl font-bold w-8 text-center ${
+                      index === 0 ? 'text-yellow-400 neon-text' : 
+                      index === 1 ? 'text-gray-300' : 
+                      index === 2 ? 'text-orange-400' : 'text-neon-cyan'
+                    }`}>
+                      {index + 1}
+                    </div>
+                    <Image
+                      src={user.profilePic || '/default-avatar.png'}
+                      width={40}
+                      height={40}
+                      alt={`Image of ${user.username}`}
+                      className="rounded-full border-2 border-neon-cyan/50"
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-xl font-semibold text-white">
                         {user.username}
                       </span>
-                      {index === 0 && (
-                        <FaCrown className="inline-block w-6 h-6 text-yellow-500 mb-1 animate-pulse" />
-                      )}
+                      <span className="text-sm text-gray-400">
+                        {user.quizResults.length} quiz{user.quizResults.length !== 1 ? 'es' : ''} taken
+                      </span>
                     </div>
-                    <span className="text-neon-green font-mono">
-                      Score: {user.quizResults.reduce(
+                    {index === 0 && (
+                      <FaCrown className="text-yellow-500 text-2xl animate-pulse ml-2" />
+                    )}
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-neon-green font-mono">
+                      {user.quizResults.reduce(
                         (acc, curr) => acc + curr.quizScore,
                         0
                       )}
-                    </span>
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      Total Score
+                    </div>
                   </div>
                 </div>
               </li>

@@ -82,23 +82,28 @@ const Quiz = ({ questions, userId }: QuizProps) => {
 
   const nextQuestion = () => {
     setSelectedAnswerIndex(null);
-    setResults((prev) =>
-      selectedAnswer
-        ? {
-            ...prev,
-            score: prev.score + 5,
-            correctAnswers: prev.correctAnswers + 1,
-          }
-        : {
-            ...prev,
-            wrongAnswers: prev.wrongAnswers + 1,
-          }
-    );
+    
+    // Calculate new results
+    const newResults = selectedAnswer
+      ? {
+          ...results,
+          score: results.score + 5,
+          correctAnswers: results.correctAnswers + 1,
+        }
+      : {
+          ...results,
+          wrongAnswers: results.wrongAnswers + 1,
+        };
+    
+    setResults(newResults);
+    
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
       setShowResults(true);
       stopTimer();
+      
+      // Use the calculated results for API call
       fetch("/api/quizResults", {
         method: "POST",
         headers: {
@@ -106,9 +111,9 @@ const Quiz = ({ questions, userId }: QuizProps) => {
         },
         body: JSON.stringify({
           userId: userId,
-          quizScore: results.score,
-          correctAnswers: results.correctAnswers,
-          wrongAnswers: results.wrongAnswers,
+          quizScore: newResults.score,
+          correctAnswers: newResults.correctAnswers,
+          wrongAnswers: newResults.wrongAnswers,
         }),
       })
         .then((response) => {
