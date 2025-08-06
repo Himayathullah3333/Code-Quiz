@@ -5,24 +5,33 @@ import { currentUser } from "@clerk/nextjs"
 export const fetchUsers = async () => {
   try {
     const clerkUser = await currentUser()
-    let mongoUser = null
-    mongoUser = await prisma.user.findUnique({
+    
+    if (!clerkUser) {
+      throw new Error("No authenticated user found")
+    }
+
+    let mongoUser = await prisma.user.findUnique({
       where: {
-        clerkUserId: clerkUser?.id
+        clerkUserId: clerkUser.id
       }
     })
 
     if (!mongoUser) {
-      let username = clerkUser?.username
+      let username = clerkUser.username
       if (!username) {
-        username = clerkUser?.firstName + " " + clerkUser?.lastName
+        username = `${clerkUser.firstName || ''} ${clerkUser.lastName || ''}`.trim()
       }
-      const newUser: any = {
-        clerkUserId: clerkUser?.id,
+      if (!username) {
+        username = clerkUser.emailAddresses[0]?.emailAddress?.split('@')[0] || 'User'
+      }
+
+      const newUser = {
+        clerkUserId: clerkUser.id,
         username,
-        email: clerkUser?.emailAddresses[0].emailAddress,
-        profilePic: clerkUser?.imageUrl
+        email: clerkUser.emailAddresses[0]?.emailAddress || '',
+        profilePic: clerkUser.imageUrl || ''
       }
+      
       mongoUser = await prisma.user.create({
         data: newUser
       })
@@ -41,6 +50,7 @@ export const fetchUsers = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    console.error("fetchUsers error:", error)
+    throw new Error("Failed to fetch user data")
   }
 }
