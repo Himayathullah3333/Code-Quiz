@@ -26,7 +26,7 @@ const page = async () => {
 
     return (
       <div className="max-w-[1500px] mx-auto w-[90%] py-10 bg-gray-900 min-h-screen">
-        <h1 className="font-bold mb-8 text-center text-3xl uppercase text-neon-cyan neon-text">
+        <h1 className="font-bold mb-8 text-center text-3xl uppercase text-white">
           🏆 Leaderboards 🏆
         </h1>
         {users.length === 0 ? (
@@ -75,7 +75,7 @@ const page = async () => {
                     )}
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-neon-green font-mono">
+                    <div className="text-2xl font-bold text-white font-mono">
                       {user.quizResults.reduce(
                         (acc, curr) => acc + curr.quizScore,
                         0
