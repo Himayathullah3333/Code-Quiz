@@ -7,6 +7,13 @@
   .flexCol {
     @apply flex-col;
   }
+
+  /* Full-page gradient background */
+  html, body, #__next {
+    @apply min-h-screen m-0 p-0;
+    background: linear-gradient(90deg, #c04df1, #a136e6, #7b1ed6);
+    color: white;
+  }
 }
 
 /* Design system utilities for a modern, trending UI */

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { MdQuiz } from "react-icons/md";
@@ -29,15 +29,17 @@ const Navbar = () => {
         <div>
           <Link
             href={"/"}
-            className="flex gap-2 items-center text-2xl"
+            className="flex gap-2 items-center text-2xl font-extrabold tracking-tight"
           >
-            <span className="gradient-text font-extrabold tracking-tight">CodeQuiz</span>
+            <span className="bg-gradient-to-l from-[#9788F9] via-[#E37AF9] to-[#3DC8F0]
+                             bg-clip-text text-transparent">
+              CodeQuiz
+            </span>
             <Image src={logo} alt="CodeQuiz logo" width={28} height={28} className="rounded-sm drop-shadow-md" />
           </Link>
         </div>
 
-        {/* Category chip removed as requested */}
-        <div />
+        <div /> {/* Removed category chip */}
 
         <div className="flex items-center gap-3 justify-end">
           <UserMenu />
