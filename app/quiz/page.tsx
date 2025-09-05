@@ -5,15 +5,17 @@ import { fetchUsers } from "../(auth)/actions/fetchUsers";
 export const dynamic = "force-dynamic";
 export const runtime = 'nodejs';
 
-async function getData() {
+const allowedCategories = new Set(['javascript','information-technology','aids','cse','sales']);
+
+async function getData(category: string) {
   try {
-    const query = `*[_type == "questions"]{
+    const query = `*[_type == "questions" && category == $category]{
       question,
       answers,
       correctAnswer
     }`;
 
-    const data = await client.fetch(query);
+    const data = await client.fetch(query, { category });
     return data;
   } catch (error) {
     console.error("Failed to fetch questions:", error);
@@ -21,20 +23,30 @@ async function getData() {
   }
 }
 
-const page = async () => {
+const page = async ({ searchParams }: { searchParams: { category?: string; count?: string } }) => {
   try {
-    const [questions, user] = await Promise.all([
-      getData(),
+    const rawCategory = (searchParams?.category || 'javascript').toLowerCase();
+    const category = allowedCategories.has(rawCategory) ? rawCategory : 'javascript';
+
+    // Respect count from URL again with bounds; default 20
+    let count = Number(searchParams?.count ?? 20);
+    if (isNaN(count)) count = 20;
+    count = Math.max(2, Math.min(20, count));
+
+    const [allCategoryQuestions, user] = await Promise.all([
+      getData(category),
       fetchUsers()
     ]);
-    
+
+    const questions = (allCategoryQuestions || []).slice(0, count);
+
     const userId = user?.data.user.id;
 
     if (!questions || questions.length === 0) {
       return (
         <div className="max-w-[1500px] mx-auto w-[90%] py-10 text-center">
           <h1 className="text-2xl font-bold text-white mb-4">No Questions Available</h1>
-          <p className="text-gray-400">Please check back later or contact support.</p>
+          <p className="text-gray-400">No questions found for the selected category.</p>
         </div>
       );
     }

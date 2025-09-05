@@ -47,8 +47,10 @@ function LayoutProvider({
     if (!isPublicRoute) getCurrentUser();
   }, []);
 
+  const containerClass = "min-h-screen bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 text-white flex flexCol justify-between backdrop-grid";
+
   return (
-    <div className="min-h-screen bg-secondary flex flexCol justify-between">
+    <div className={containerClass}>
       {getNavbar()}
       {getContent()}
       {getFooter()}

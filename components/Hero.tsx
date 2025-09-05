@@ -1,29 +1,63 @@
+'use client';
 import Link from "next/link";
+import { useMemo, useState } from "react";
+
+const categories = [
+  { label: "JavaScript", value: "javascript" },
+  { label: "Information Technology", value: "information-technology" },
+  { label: "AI & DS", value: "aids" },
+  { label: "CSE", value: "cse" },
+  { label: "Sales", value: "sales" },
+];
 
 const Hero = () => {
+  const [category, setCategory] = useState<string>("javascript");
+  const [count, setCount] = useState<number>(20);
+
+  const startHref = useMemo(() => {
+    const safeCount = Math.max(2, Math.min(20, Number(count) || 20));
+    const safeCategory = categories.some(c => c.value === category)
+      ? category
+      : "javascript";
+    const search = new URLSearchParams({ category: safeCategory, count: String(safeCount) });
+    return `/quiz?${search.toString()}`;
+  }, [category, count]);
+
   return (
     <section 
-      className="relative w-full min-h-[500px] flex items-center justify-center text-center"
-      style={{
-        background: 'linear-gradient(135deg, #49c5b6 0%, #DF6C4F 50%, #ffffff 100%)'
-      }}
+      className="relative w-full min-h-[60vh] flex items-center justify-center text-center overflow-hidden"
     >
-      <div className="px-4 md:px-6 max-w-[1500px] mx-auto w-[90%]">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-white drop-shadow-lg">
-            Ready to take this week's quiz?
-          </h1>
-          <p className="text-white/90 drop-shadow-md">
-            Get ready to ace it.
-          </p>
-        </div>
-        <div className="mt-6">
-          <Link
-            href={"/quiz"}
-            className="inline-flex items-center justify-center rounded-md bg-white/20 backdrop-blur-sm border border-white/30 px-8 py-3 text-sm font-medium text-white shadow-lg transition-all duration-500 hover:bg-white/30 hover:scale-105"
-          >
-            Start Now
-          </Link>
+      {/* Removed gradient and glow backgrounds */}
+      <div className="section-container">
+        <div className="card">
+          <div className="space-y-2">
+            <span className="chip">Weekly Challenge</span>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
+              Ace the <span className="gradient-text">CodeQuiz</span>
+            </h1>
+            <p className="text-white/80 text-sm md:text-base">
+              Pick a category, set your question count, and challenge yourself. New questions every week.
+            </p>
+          </div>
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="text-white/90">Category</label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="rounded-xl px-3 py-2 bg-white text-gray-900 shadow-md"
+              >
+                {categories.map((c) => (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                ))}
+              </select>
+              <label className="text-white/90">Questions</label>
+              <span className="w-24 rounded-xl px-3 py-2 bg-white text-gray-900 shadow-md font-semibold flex items-center justify-center">{count}</span>
+            </div>
+            <Link href={startHref} className="btn-primary">
+              Start Now
+            </Link>
+          </div>
         </div>
       </div>
     </section>

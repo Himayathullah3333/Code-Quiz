@@ -12,6 +12,11 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: "CodeQuiz",
   description: "Weekly quiz question for developers",
+  icons: {
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -22,6 +27,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+        </head>
         <body
           className={`${raleway.className} min-h-screen`}
         >

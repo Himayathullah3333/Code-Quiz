@@ -2,8 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base and shared utilities */
 @layer styles {
   .flexCol {
     @apply flex-col;
+  }
+}
+
+/* Design system utilities for a modern, trending UI */
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl shadow-black/10;
+  }
+
+  .card {
+    @apply rounded-2xl glass p-6 md:p-8;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs md:text-sm font-medium bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-md shadow-indigo-500/20;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm md:text-base font-semibold text-white bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm md:text-base font-semibold text-gray-800 bg-white/70 border border-black/10 shadow-sm transition-all duration-300 hover:bg-white;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  .section-container {
+    @apply max-w-[1200px] w-[92%] md:w-[88%] mx-auto;
+  }
+}
+
+@layer utilities {
+  .backdrop-grid {
+    background-image:
+      radial-gradient(transparent 1px, rgba(255,255,255,0.06) 1px),
+      radial-gradient(transparent 1px, rgba(0,0,0,0.04) 1px);
+    background-size: 16px 16px, 16px 16px;
+    background-position: 0 0, 8px 8px;
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 0 2px rgba(99,102,241,.25), 0 10px 25px -5px rgba(99,102,241,.45), 0 8px 10px -6px rgba(99,102,241,.35);
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.45); }
+    50% { box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+  }
+
+  /* Smooth scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #6366f1, #a78bfa);
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
   }
 }

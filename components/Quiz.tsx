@@ -143,24 +143,24 @@ const Quiz = ({ questions, userId }: QuizProps) => {
   };
   return (
     <div className="min-h-[500px]">
-      <div className="max-w-[1500px] mx-auto w-[90%] flex justify-center py-10 flex-col">
+      <div className="section-container flex justify-center py-10 flex-col">
         {!showResults ? (
           <>
             <div className="flex justify-between mb-10 items-center">
-              <div className="bg-primary text-white px-4 rounded-md py-1">
+              <div className="chip">
                 <h2>
-                  Question: {activeQuestion + 1}
+                  Question {activeQuestion + 1}
                   <span>/{questions.length}</span>
                 </h2>
               </div>
 
-              <div className="bg-primary text-white px-4 rounded-md py-1">
+              <div className="chip">
                 {timeRemaining} seconds to answer
               </div>
             </div>
 
-            <div>
-              <h3 className="mb-5 text-2xl font-bold">
+            <div className="card">
+              <h3 className="mb-5 text-2xl md:text-3xl font-extrabold text-white">
                 {question}
               </h3>
               <ul>
@@ -171,14 +171,14 @@ const Quiz = ({ questions, userId }: QuizProps) => {
                       onClick={() =>
                         onAnswerSelected(answer, idx)
                       }
-                      className={`cursor-pointer mb-5 py-3 rounded-md hover:bg-primary hover:text-white px-3
+                      className={`cursor-pointer mb-3 py-3 rounded-xl px-3 border transition-all duration-200
                       ${
-                        selectedAnswerIndex === idx &&
-                        "bg-primary text-white"
-                      }
-                      `}
+                        selectedAnswerIndex === idx
+                          ? "bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white border-transparent shadow-glow"
+                          : "bg-white text-gray-900 border-black/10 hover:border-indigo-300"
+                      }`}
                     >
-                      <span>{answer}</span>
+                      <span className="text-sm md:text-base">{answer}</span>
                     </li>
                   )
                 )}
@@ -186,7 +186,7 @@ const Quiz = ({ questions, userId }: QuizProps) => {
               <button
                 onClick={nextQuestion}
                 disabled={!checked}
-                className="font-bold"
+                className={`mt-4 w-full md:w-auto ${checked ? 'btn-primary' : 'btn-ghost cursor-not-allowed opacity-70'}`}
               >
                 {activeQuestion === questions.length - 1
                   ? "Finish"
@@ -196,34 +196,39 @@ const Quiz = ({ questions, userId }: QuizProps) => {
           </>
         ) : (
           <div className="text-center">
-            <h3 className="text-2xl uppercase mb-10">
-              Results 📈
+            <h3 className="text-2xl md:text-3xl uppercase mb-6 text-white font-extrabold">
+              Results
             </h3>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               <StatCard
                 title="Percentage"
                 value={`${(results.score / 50) * 100}%`}
+                variant="white"
               />
               <StatCard
                 title="Total Questions"
                 value={questions.length}
+                variant="white"
               />
               <StatCard
-                title=" Total Score"
+                title="Total Score"
                 value={results.score}
+                variant="white"
               />
               <StatCard
                 title="Correct Answers"
                 value={results.correctAnswers}
+                variant="white"
               />
               <StatCard
                 title="Wrong Answers"
                 value={results.wrongAnswers}
+                variant="white"
               />
             </div>
             <button
               onClick={() => window.location.reload()}
-              className="mt-10 font-bold uppercase"
+              className="mt-10 btn-primary"
             >
               Restart Quiz
             </button>

@@ -1,10 +1,14 @@
+import Link from "next/link";
+import { MdQuiz } from "react-icons/md";
+import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
+
 const Footer = () => {
   return (
-    <footer className="py-10">
-      <div className="max-w-[1500px] mx-auto w-[90%] text-center">
-        <span>
-          Copyright © 2025 - Developed by Himayathullah
-
+    <footer className="w-full py-10 flex justify-center items-center bg-transparent">
+      <div className="glass rounded-2xl px-8 py-5 shadow-lg shadow-fuchsia-500/30 border border-fuchsia-400/30 animate-pulse-glow">
+        <span className="text-sm text-white/80 font-medium">
+        Sree Sastha Institute of Engineering and Technology
+        © 2025 CodeQuiz • developed by Himayathullah / Hari
         </span>
       </div>
     </footer>
