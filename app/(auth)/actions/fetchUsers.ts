@@ -7,7 +7,8 @@ export const fetchUsers = async () => {
     const clerkUser = await currentUser()
     
     if (!clerkUser) {
-      throw new Error("No authenticated user found")
+      console.log("No authenticated user found")
+      return null
     }
 
     let mongoUser = await prisma.user.findUnique({
@@ -32,14 +33,22 @@ export const fetchUsers = async () => {
         profilePic: clerkUser.imageUrl || ''
       }
       
-      mongoUser = await prisma.user.create({
-        data: newUser
-      })
+      try {
+        mongoUser = await prisma.user.create({
+          data: newUser
+        })
+      } catch (createError) {
+        console.error("Error creating user:", createError)
+        throw new Error("Failed to create user")
+      }
     }
 
     const quizResults = await prisma.quizResult.findMany({
       where: {
         userId: mongoUser.id
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
 
@@ -51,6 +60,9 @@ export const fetchUsers = async () => {
     }
   } catch (error) {
     console.error("fetchUsers error:", error)
+    if (error instanceof Error) {
+      throw error
+    }
     throw new Error("Failed to fetch user data")
   }
 }
