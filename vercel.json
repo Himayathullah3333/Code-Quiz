@@ -1,0 +1,7 @@
+{
+    "functions": {
+      "app/quiz/page.tsx": {
+        "maxDuration": 30
+      }
+    }
+  }
