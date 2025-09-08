@@ -12,10 +12,11 @@ const categories = [
 
 const Hero = () => {
   const [category, setCategory] = useState<string>("javascript");
-  const [count, setCount] = useState<number>(20);
+
+  const [count, setCount] = useState<number>(60);
 
   const startHref = useMemo(() => {
-    const safeCount = Math.max(2, Math.min(20, Number(count) || 20));
+    const safeCount = Math.max(2, Math.min(60, Number(count) || 60));
     const safeCategory = categories.some(c => c.value === category)
       ? category
       : "javascript";

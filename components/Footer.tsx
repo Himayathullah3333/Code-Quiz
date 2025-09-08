@@ -10,7 +10,7 @@ const Footer = () => {
         <span className="text-sm text-white/80 font-medium text-center block">
           Sree Sastha Institute of Engineering and Technology
           <br />
-          © 2025 CodeQuiz • developed by Himayathullah / Hari
+          © 2025 CodeQuiz • developed by Himayathullah / Hari Hara Nathan
         </span>
       </div>
     </footer>

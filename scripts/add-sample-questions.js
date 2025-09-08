@@ -11,7 +11,7 @@ const client = createClient({
 const sampleQuestions = [
   {
     _type: 'questions',
-    question: 'What is the output of console.log(typeof null)?',
+    question: 'What is the output of console.log(typeof ejeejeb)?',
     answers: ['null', 'undefined', 'object', 'boolean'],
     correctAnswer: 'object'
   },

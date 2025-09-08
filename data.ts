@@ -1,5 +1,5 @@
 export const quiz = {
-  totalQuestions: 20,
+  totalQuestions: 23,
   questions: [
     {
       id: 1,
@@ -120,6 +120,12 @@ export const quiz = {
       question: 'What is the output of `console.log(1 === true)`?',
       answers: ['true', 'false', 'undefined', 'TypeError'],
       correctAnswer: 'false',
+    },
+    {
+      id: 21,
+      question: 'null`?',
+      answers: ['1', '2', '3', '4'],
+      correctAnswer: '1',
     },
   ],
 };
