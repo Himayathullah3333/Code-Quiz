@@ -5,10 +5,17 @@ const client = createClient({
   dataset: 'production',
   useCdn: false,
   apiVersion: '2024-03-12',
-  token: process.env.SANITY_AUTH_TOKEN, // You'll need to set this
+  token: 'skCPOdgmde6mQV4OWkUGGHMNUgB1x1FWsCsAGc5TQ8QVPUE07DNApaxv1QeYDd3PGXk38BRtfi5rc5oD4jiqr0vcJ8nluHUlpde2vwVRtM1x4xTlC9AYz3PbVqLrGQMyi5wxnwgdlgaCPydNaEM8zpKFGC3mUAerWR9mugPL52LfPEnmN6jX,' // You'll need to set this
 });
 
 const sampleQuestions = [
+  {
+    _type: 'questions',
+    question: 'vinton g cerf',
+    answers: ['ff', 'ffr', 'vcv', 'aws'],
+    correctAnswer: 'aws',
+    category: 'aids'
+  },
   {
     _type: 'questions',
     question: 'What is the output of console.log(typeof ejeejeb)?',

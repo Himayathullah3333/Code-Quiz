@@ -1,12 +1,12 @@
 import { createClient } from 'next-sanity'
 
-import { apiVersion, dataset, projectId, useCdn } from '../env'
+import { apiVersion, dataset, projectId } from '../env'
 
 export const client = createClient({
   apiVersion,
   dataset,
   projectId,
-  useCdn: false, // fetch straight from the database every time
-  next: { revalidate: 10 }, // revalidate every 10 seconds
+  useCdn: false, // explicitly set to false since 'useCdn' is not imported
+  // revalidate every 10 seconds
 })
    
