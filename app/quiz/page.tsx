@@ -7,9 +7,17 @@ export const runtime = 'nodejs';
 
 const allowedCategories = new Set(['javascript','information-technology','aids','cse','sales']);
 
+async function getSettings() {
+  const settingsQuery = `*[_type == "settings"][0]{
+    defaultCategory,
+    defaultCount
+  }`;
+  return client.fetch(settingsQuery);
+}
+
 async function getData(category: string) {
   try {
-    const query = `*[_type == "questions" && category == $category]{
+    const query = `*[_type == "questions" && lower(category) == $category]|order(_updatedAt desc){
       question,
       answers,
       correctAnswer
@@ -25,13 +33,14 @@ async function getData(category: string) {
 
 const page = async ({ searchParams }: { searchParams: { category?: string; count?: string } }) => {
   try {
-    const rawCategory = (searchParams?.category || 'javascript').toLowerCase();
+    const settings = await getSettings();
+    const rawCategory = (searchParams?.category || settings?.defaultCategory || 'javascript').toLowerCase();
     const category = allowedCategories.has(rawCategory) ? rawCategory : 'javascript';
 
-    // Respect count from URL again with bounds; default 20
-    let count = Number(searchParams?.count ?? 20);
-    if (isNaN(count)) count = 20;
-    count = Math.max(2, Math.min(20, count));
+    // Respect count from URL again with bounds; default 30 or settings.defaultCount
+    let count = Number(searchParams?.count ?? settings?.defaultCount ?? 30);
+    if (isNaN(count)) count = Number(settings?.defaultCount ?? 30);
+    count = Math.max(2, Math.min(30, count));
 
     const [allCategoryQuestions, user] = await Promise.all([
       getData(category),
