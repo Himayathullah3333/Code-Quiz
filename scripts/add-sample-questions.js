@@ -1,12 +1,5 @@
-const { createClient } = require('@sanity/client');
+// @sanity/client is imported dynamically for ESM compatibility
 
-const client = createClient({
-  projectId: '3yqqwf5v',
-  dataset: 'production',
-  useCdn: false,
-  apiVersion: '2024-03-12',
-  token: 'skCPOdgmde6mQV4OWkUGGHMNUgB1x1FWsCsAGc5TQ8QVPUE07DNApaxv1QeYDd3PGXk38BRtfi5rc5oD4jiqr0vcJ8nluHUlpde2vwVRtM1x4xTlC9AYz3PbVqLrGQMyi5wxnwgdlgaCPydNaEM8zpKFGC3mUAerWR9mugPL52LfPEnmN6jX,' // You'll need to set this
-});
 
 const sampleQuestions = [
   {
@@ -80,6 +73,14 @@ const sampleQuestions = [
 
 async function addQuestions() {
   try {
+    const { createClient } = await import('@sanity/client');
+    const client = createClient({
+      projectId: '3yqqwf5v',
+      dataset: 'production',
+      useCdn: false,
+      apiVersion: '2024-03-12',
+      token: 'skCPOdgmde6mQV4OWkUGGHMNUgB1x1FWsCsAGc5TQ8QVPUE07DNApaxv1QeYDd3PGXk38BRtfi5rc5oD4jiqr0vcJ8nluHUlpde2vwVRtM1x4xTlC9AYz3PbVqLrGQMyi5wxnwgdlgaCPydNaEM8zpKFGC3mUAerWR9mugPL52LfPEnmN6jX,' // You'll need to set this
+    });
     console.log('Adding sample questions to Sanity...');
     
     for (const question of sampleQuestions) {
