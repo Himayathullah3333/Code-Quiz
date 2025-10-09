@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const categories = [
-  { label: "JavaScript", value: "javascript" },
+  { label: "cyber security", value: "javascript" },
   { label: "Information Technology", value: "information-technology" },
   { label: "AI & DS", value: "aids" },
   { label: "CSE", value: "cse" },
-  { label: "Sales", value: "sales" },
+  { label: "AI & ML", value: "sales" },
 ];
 
 const Hero = () => {
@@ -31,15 +31,15 @@ const Hero = () => {
           <div className="space-y-6 text-center">
             <span className="chip">Weekly Challenge</span>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
-              Ace the{' '}
+              {' '}
               <span className="bg-gradient-to-l from-[#9788F9] via-[#E37AF9] to-[#3DC8F0]
                  bg-clip-text text-transparent">
-  CodeQuiz
+  Sree Sastha CodeQuiz
 </span>
 
             </h1>
             <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto">
-              Pick a category, set your question count, and challenge yourself. New questions every week.
+              pick the respected department
             </p>
           </div>
 

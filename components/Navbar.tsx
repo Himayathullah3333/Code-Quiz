@@ -6,7 +6,7 @@ import UserMenu from "./UserMenu";
 import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import logo from "@/images/logo.png";
+import sastha from "@/images/sastha.jpeg";
 
 const categoryLabelMap: Record<string, string> = {
   javascript: "JavaScript",
@@ -35,7 +35,7 @@ const Navbar = () => {
                              bg-clip-text text-transparent">
               CodeQuiz
             </span>
-            <Image src={logo} alt="CodeQuiz logo" width={28} height={28} className="rounded-sm drop-shadow-md" />
+            <Image src={sastha} alt="CodeQuiz logo" width={28} height={28} className="rounded-sm drop-shadow-md" />
           </Link>
         </div>
 
